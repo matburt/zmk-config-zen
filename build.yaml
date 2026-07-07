@@ -1,0 +1,14 @@
+---
+# Corne-ish Zen v2 (GB R3) — Miryoku layout + ZMK Studio
+# Pattern mirrors LowproKB's official zen-2 config:
+#   - normal left + right firmware
+#   - a separate "left + Studio" artifact (studio enabled via cmake-args)
+# Flash the *_studio left build when you want to edit in ZMK Studio; otherwise
+# flash the plain left build. The right half is the same either way.
+include:
+  - board: corneish_zen_v2_left
+  - board: corneish_zen_v2_right
+  - board: corneish_zen_v2_left
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y
+    artifact-name: corneish_zen_v2_left_studio
