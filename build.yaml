@@ -5,10 +5,14 @@
 #   - a separate "left + Studio" artifact (studio enabled via cmake-args)
 # Flash the *_studio left build when you want to edit in ZMK Studio; otherwise
 # flash the plain left build. The right half is the same either way.
+#
+# Board naming updated for ZMK's move to Zephyr 4.1 (hardware model v2):
+# the old `corneish_zen_v2_left` ids are now `corneish_zen_left/nrf52840/zmk`.
+# Default board revision is 2.0.0 (= v2), so no @revision suffix is needed.
 include:
-  - board: corneish_zen_v2_left
-  - board: corneish_zen_v2_right
-  - board: corneish_zen_v2_left
+  - board: corneish_zen_left/nrf52840/zmk
+  - board: corneish_zen_right/nrf52840/zmk
+  - board: corneish_zen_left/nrf52840/zmk
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-    artifact-name: corneish_zen_v2_left_studio
+    artifact-name: corneish_zen_left_studio
