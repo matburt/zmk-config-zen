@@ -1,11 +1,11 @@
 # Corne-ish Zen v2 — Miryoku + ZMK Studio
 
 A native ZMK config for the **Corne-ish Zen v2 (GB R3)** that reproduces the
-Miryoku Colemak Mod-DH layout **and** is editable live in [ZMK Studio](https://zmk.studio/).
+Miryoku layout (QWERTY base) **and** is editable live in [ZMK Studio](https://zmk.studio/).
 
 The keymap is transcribed directly from the `manna-harbour/miryoku_zmk` generated
-layers (default / right-hand-nav, Colemak Mod-DH), so it matches a stock Miryoku
-build — but written as a plain keymap so Studio can read and edit it. Unlike the
+layers (default / right-hand-nav), with a **QWERTY** base instead of the stock
+Colemak Mod-DH — but written as a plain keymap so Studio can read and edit it. Unlike the
 `miryoku_zmk` repo (a compile-time C-macro system Studio can't parse), you rebuild
 once and then move keys in the browser.
 
@@ -22,12 +22,12 @@ config/corneish_zen.keymap     # the Miryoku layout as a native keymap
 1. Create a GitHub repo (e.g. `zmk-config-zen`) and drop these files in — `build.yaml`
    at the root, the other two in `config/`.
 2. Commit and push. GitHub Actions builds automatically (enable Actions if prompted).
-3. Download the artifact zip from the run. You'll get `corneish_zen_v2_left`,
-   `corneish_zen_v2_right`, `corneish_zen_v2_left_studio` (Studio-enabled left), and
+3. Download the artifact zip from the run. You'll get `corneish_zen_left`,
+   `corneish_zen_right`, `corneish_zen_left_studio` (Studio-enabled left), and
    a settings-reset UF2.
 4. Flash over USB — double-tap reset, drag the matching UF2 onto the drive. Flash the
-   **right** UF2 to the right half. For the left, use **`corneish_zen_v2_left_studio`**
-   if you want live editing, or the plain **`corneish_zen_v2_left`** if you don't.
+   **right** UF2 to the right half. For the left, use **`corneish_zen_left_studio`**
+   if you want live editing, or the plain **`corneish_zen_left`** if you don't.
 
 > Best base to start from: the [ZMK new-user template](https://github.com/zmkfirmware/unified-zmk-config-template)
 > (pick Corne-ish Zen v2), or fork [LOWPROKB/zmk-config-zen-2](https://github.com/LOWPROKB/zmk-config-zen-2),
@@ -52,7 +52,7 @@ will find them.
 
 ## Using ZMK Studio
 
-1. Flash `corneish_zen_v2_left_studio` to the left half and connect it over **USB**.
+1. Flash `corneish_zen_left_studio` to the left half and connect it over **USB**.
 2. Open <https://zmk.studio/> in Chrome or Edge and connect.
 3. **Unlock editing:** press both **outer thumb keys together** (the `&studio_unlock`
    combo). Now you can rearrange keys and layers.
@@ -61,11 +61,33 @@ will find them.
 You only rebuild firmware for changes to combos, home-row-mod timing, the Bluetooth
 morph, or `.conf`. Everyday key swaps happen in Studio.
 
+> ### ⚠️ Pick one source of truth
+>
+> There are **two independent places** the layout can live, and they do **not** sync:
+>
+> - **This repo** (`config/corneish_zen.keymap`) — what CI compiles into the firmware.
+> - **The keyboard's own storage** — where ZMK Studio writes your live edits.
+>
+> They can drift apart. If you edit in Studio and later flash a fresh build from
+> this repo, **the build wins and your Studio changes are gone**. If you edit the
+> keymap here but keep using Studio-saved changes on the board, the repo no longer
+> reflects what you actually type.
+>
+> Decide which one is authoritative:
+>
+> - **Repo as source of truth** (recommended for anything you want to keep): make
+>   changes in `corneish_zen.keymap`, push, and reflash. Treat Studio as scratch —
+>   a settings reset returns the board to exactly what's compiled here.
+> - **Studio as source of truth**: do your remapping in Studio and **avoid
+>   reflashing**, since any new build silently overwrites the board. If you go this
+>   route, periodically transcribe changes back into the keymap so the repo isn't
+>   stale — the two never reconcile automatically.
+
 ## What's in the layout (faithful Miryoku)
 
-All eight layers are exact ports of stock Miryoku Colemak Mod-DH:
+All eight layers are ports of stock Miryoku, with a QWERTY base layer:
 
-- **Base** — Colemak-DH with home-row mods (GUI/Alt/Ctrl/Shift), AltGr mod-taps on
+- **Base** — QWERTY with home-row mods (GUI/Alt/Ctrl/Shift), AltGr mod-taps on
   X and `.`, and a Button-layer hold on Z and `'`.
 - **Nav / Mouse / Media** — held from the left thumbs; functions on the right hand,
   mods on the left. Nav has arrows + clipboard + INS/HOME/PGUP/PGDN/END. Mouse uses
